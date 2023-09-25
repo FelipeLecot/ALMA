@@ -22,13 +22,7 @@ struct whisper_coreml_context * whisper_coreml_init(const char * path_model) {
 
     NSURL * url_model = [NSURL fileURLWithPath: path_model_str];
 
-    // select which device to run the Core ML model on
-    MLModelConfiguration *config = [[MLModelConfiguration alloc] init];
-    config.computeUnits = MLComputeUnitsCPUAndGPU;
-    //config.computeUnits = MLComputeUnitsCPUAndNeuralEngine;
-    //config.computeUnits = MLComputeUnitsAll;
-
-    const void * data = CFBridgingRetain([[whisper_encoder_impl alloc] initWithContentsOfURL:url_model configuration:config error:nil]);
+    const void * data = CFBridgingRetain([[whisper_encoder_impl alloc] initWithContentsOfURL:url_model error:nil]);
 
     if (data == NULL) {
         return NULL;
@@ -59,11 +53,9 @@ void whisper_coreml_encode(
                                            error: nil
     ];
 
-    @autoreleasepool {
-        whisper_encoder_implOutput * outCoreML = [(__bridge id) ctx->data predictionFromLogmel_data:inMultiArray error:nil];
+    whisper_encoder_implOutput * outCoreML = [(__bridge id) ctx->data predictionFromLogmel_data:inMultiArray error:nil];
 
-        memcpy(out, outCoreML.output.dataPointer, outCoreML.output.count * sizeof(float));
-    }
+    memcpy(out, outCoreML.output.dataPointer, outCoreML.output.count * sizeof(float));
 }
 
 #if __cplusplus
