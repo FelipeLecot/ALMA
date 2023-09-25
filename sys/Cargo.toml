@@ -1,0 +1,41 @@
+[package]
+name = "whisper-rs-sys"
+version = "0.6.1"
+edition = "2021"
+description = "Rust bindings for whisper.cpp (FFI bindings)"
+license = "Unlicense"
+documentation = "https://docs.rs/whisper-rs-sys"
+repository = "https://github.com/tazz4843/whisper-rs"
+links = "whisper"
+include = [
+    "whisper.cpp/bindings/javascript/package-tmpl.json",
+    "whisper.cpp/bindings/CMakeLists.txt",
+    "whisper.cpp/cmake",
+    "whisper.cpp/coreml",
+    "whisper.cpp/CMakeLists.txt",
+    "whisper.cpp/ggml.c",
+    "whisper.cpp/ggml.h",
+    "whisper.cpp/ggml-opencl.c",
+    "whisper.cpp/ggml-opencl.h",
+    "whisper.cpp/ggml-cuda.cu",
+    "whisper.cpp/ggml-cuda.h",
+    "whisper.cpp/LICENSE",
+    "whisper.cpp/whisper.cpp",
+    "whisper.cpp/whisper.h",
+    "src/*.rs",
+    "build.rs",
+    "wrapper.h",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+coreml = []
+cuda = []
+opencl = []
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.64"
+cfg-if = "1"
